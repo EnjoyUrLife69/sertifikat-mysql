@@ -7,7 +7,7 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 
-// FRONTEND
+// Lainnya
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 

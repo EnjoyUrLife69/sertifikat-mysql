@@ -9,49 +9,7 @@
                 </h4>
             </div>
             <div class="col-md-1">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
-                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt
-                                            class="w-px-40 h-auto rounded-circle" />
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                    <small class="text-muted"> {{ Auth::user()->getRoleNames()->first() }}
-                                    </small>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}" class="dropdown-item preview-item"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <div class="row">
-                                <div class="col">
-                                    <i class="bx bx-power-off me-2"></i>
-                                </div>
-                                <div class="col" style="margin-left: -120px">
-                                    <span class="fw-semibold d-block">Logout</span>
-                                </div>
-                            </div>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
+                @include('partials.navbar')
             </div>
         </div>
 
@@ -87,62 +45,72 @@
                                             <div class="row">
                                                 <div class="row mb-3">
                                                     <label class="col-sm-2 col-form-label"
-                                                        for="basic-icon-default-fullname">Username<b style="color: red"> *</b></label>
+                                                        for="basic-icon-default-fullname">Username<b style="color: red">
+                                                            *</b></label>
                                                     <div class="col-sm-10">
                                                         <div class="input-group input-group-merge">
                                                             <span id="basic-icon-default-fullname2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-category'></i></span>
                                                             <input type="text" class="form-control"
-                                                                id="basic-icon-default-fullname" placeholder="Enter Name"
-                                                                required aria-label="John Doe" name="name"
+                                                                value="{{ old('name') }}" id="basic-icon-default-fullname"
+                                                                placeholder="Enter Name" required aria-label="John Doe"
+                                                                name="name"
                                                                 aria-describedby="basic-icon-default-fullname2" />
                                                         </div>
+                                                        @error('username')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                                @error('username')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+
                                                 <div class="row mb-3">
                                                     <label class="col-sm-2 col-form-label"
-                                                        for="basic-icon-default-fullname">Email<b style="color: red"> *</b></label>
+                                                        for="basic-icon-default-fullname">Email<b style="color: red">
+                                                            *</b></label>
                                                     <div class="col-sm-10">
                                                         <div class="input-group input-group-merge">
                                                             <span id="basic-icon-default-fullname2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-category'></i></span>
                                                             <input type="email" class="form-control"
-                                                                id="basic-icon-default-fullname"
-                                                                placeholder="Enter Email   " required aria-label="John Doe"
+                                                                id="basic-icon-default-fullname" value="{{ old('email') }}"
+                                                                placeholder="Enter Email" required aria-label="John Doe"
                                                                 name="email"
                                                                 aria-describedby="basic-icon-default-fullname2" />
                                                         </div>
+                                                        @error('email')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                                @error('email')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+
                                                 <div class="row mb-3">
                                                     <label class="col-sm-2 col-form-label"
-                                                        for="basic-icon-default-fullname">Password<b style="color: red"> *</b></label>
+                                                        for="basic-icon-default-fullname">Password<b style="color: red">
+                                                            *</b></label>
                                                     <div class="col-sm-10">
                                                         <div class="input-group input-group-merge">
                                                             <span id="basic-icon-default-fullname2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-category'></i></span>
                                                             <input type="password" class="form-control"
+                                                                value="{{ old('password') }}"
                                                                 id="basic-icon-default-fullname" placeholder="Password"
                                                                 required aria-label="John Doe" name="password"
                                                                 aria-describedby="basic-icon-default-fullname2" />
                                                         </div>
+                                                        @error('password')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
+
                                                 </div>
-                                                @error('password')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+
                                                 <div class="row mb-3">
                                                     <label class="col-sm-2 col-form-label"
-                                                        for="basic-icon-default-fullname">Confirm<b style="color: red"> *</b> Password</label>
+                                                        for="basic-icon-default-fullname">Confirm<b style="color: red">
+                                                            *</b> Password</label>
                                                     <div class="col-sm-10">
                                                         <div class="input-group input-group-merge">
                                                             <span id="basic-icon-default-fullname2"
@@ -154,11 +122,30 @@
                                                                 aria-label="John Doe" name="confirm-password"
                                                                 aria-describedby="basic-icon-default-fullname2" />
                                                         </div>
+                                                        @error('confirm-password')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                                @error('confirm-password')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+
+                                                <!-- Role -->
+                                                <div class="row mb-3">
+                                                    <label for="defaultSelect"
+                                                        class="col-sm-2 col-form-label">Role</label>
+                                                    <div class="col-sm-10">
+                                                        <select id="defaultSelect" class="form-select" name="roles[]">
+                                                            <option value="" disabled selected>Select Role</option>
+                                                            @foreach ($roles as $value => $label)
+                                                                <option value="{{ $value }}">{{ $label }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('roles')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="modal-footer">
