@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../TEMPLATE/BACKEND/sneat-1.0.0/sneat-1.0.0"
+		},
+		{
+			"path": "../../../../project-p5"
+		},
+		{
+			"path": "../../../../pkl_internal"
+		}
+	],
+	"settings": {}
+}
