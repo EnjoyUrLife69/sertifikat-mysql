@@ -53,7 +53,7 @@ class TrainingController extends Controller
         // Filter berdasarkan tahun
         $query = Training::query();
         if ($request->filled('tahun')) {
-            $query->whereRaw("DATE_PART('year', tanggal_mulai) = ?", [$request->tahun]);
+            $query->whereYear('tanggal_mulai', $request->tahun);
         }
 
         // Mendapatkan data training dan mengurutkannya
