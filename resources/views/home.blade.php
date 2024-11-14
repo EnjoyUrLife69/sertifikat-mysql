@@ -216,7 +216,7 @@
         </div>
     </div>
 
-
+    {{-- Chart --}}
     <script>
         // Doughnut Chart - myChart1
         // Data dari backend

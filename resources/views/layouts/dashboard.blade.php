@@ -211,20 +211,7 @@
     <!-- Toast SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    <!-- / CKEditor 5 -->
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script> --}}
-    {{-- <script>
-        ClassicEditor
-            .create(document.querySelector('#basic-icon-default-message'))
-            .then(editor => {
-                editor.ui.view.editable.element.style.width = '100%'; // Pastikan CKEditor mengikuti lebar container
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script> --}}
-
+    {{-- Modal --}}
     <script>
         $(document).ready(function() {
             @if ($errors->any())
@@ -245,6 +232,7 @@
         // @endif
     </script>
 
+    {{-- Checkbox di role --}}
     <script>
         $(document).ready(function() {
             // Event listener untuk semua checkbox
@@ -267,6 +255,7 @@
         });
     </script>
 
+    {{-- Select2 --}}
     <script>
         $(document).ready(function() {
             $('.form1').select2({
