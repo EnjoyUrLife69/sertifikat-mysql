@@ -14,6 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -57,25 +58,14 @@
             z-index: 9999 !important;
         }
 
-        .chartjs-tooltip {
-            z-index: 9999 !important;
-            /* Set z-index tinggi untuk tooltip */
-            pointer-events: none;
-            /* Mencegah interaksi dengan tooltip */
-        }
-
         .select2-container {
             width: 250px !important;
-            /* Make it full width for better responsiveness */
         }
 
         .select2-container .select2-selection {
             height: 38px !important;
-            /* Ensure the height matches the input field */
             line-height: 36px !important;
-            /* Align the text vertically */
             padding-top: 0 !important;
-            /* Remove extra padding */
         }
 
         .select2-dropdown {
@@ -85,10 +75,10 @@
             /* Set a minimum width for consistency */
         }
 
-
-        .ck-editor__editable_inline {
-            max-width: 100%;
-            /* Membatasi lebar editor */
+        #defaultSelect+.select2-container {
+            width: 556px !important;
+            border: 0.1px solid #D9DEE3;
+            border-radius: 4px;
         }
 
         .card-equal-height {
@@ -117,7 +107,6 @@
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             // Event handler untuk tombol delete
@@ -150,6 +139,7 @@
         });
     </script>
 
+    {{-- Chart --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -279,9 +269,15 @@
 
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
+            $('.form1').select2({
                 placeholder: "Semua Pelatihan",
                 allowClear: true
+            });
+            $('.form2').select2({
+                placeholder: "Semua Pelatihan",
+                allowClear: true,
+                dropdownParent: $('#modalCenter'),
+                width: '100%'
             });
         });
     </script>

@@ -25,7 +25,7 @@
                     <form method="GET" action="{{ route('sertifikat.index') }}">
                         <div class="row" style="margin-left: 137px;">
                             <div class="col-md-5" style="margin-top: 16px; margin-left: -90px;">
-                                <select class="select2 form-control" name="id_training" id="exampleSelectGender">
+                                <select class="select2 form-control form1" name="id_training" id="exampleSelectGender">
                                     <option value="" {{ is_null(request()->get('id_training')) ? 'selected' : '' }}>
                                         Tampilkan Semua Data
                                     </option>
@@ -131,7 +131,8 @@
                                                             <span id="basic-icon-default-fullname2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-category'></i></span>
-                                                            <select id="defaultSelect" class="form-select" required
+                                                            <select id="defaultSelect"
+                                                                class="select2 form-select form2 custom-select" required
                                                                 name="id_training">
                                                                 <option value="">Pilih Pelatihan</option>
                                                                 @foreach ($training as $data)
@@ -141,7 +142,6 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
-
                                                         </div>
                                                         @error('id_training')
                                                             <small class="text-danger">{{ $message }}</small>
@@ -214,7 +214,7 @@
                                         <span class="badge {{ $data->status ? 'bg-success' : 'bg-primary' }}">
                                             {{ $data->status ? 'Selesai Pelatihan' : 'Terdaftar' }}
                                         </span>
-                                    </td>   
+                                    </td>
                                     <td>
                                         {{-- SHOW DATA --}}
                                         <a href="{{ route('sertifikat.show', $data->id) }}"
@@ -288,6 +288,16 @@
                                                                                 </option>
                                                                             @endforeach
                                                                         </select>
+                                                                        {{-- <select id="defaultSelect" class="form-select"
+                                                                            required name="id_training">
+                                                                            <option value="">Pilih Pelatihan</option>
+                                                                            @foreach ($training as $data)
+                                                                                <option value="{{ $data->id }}"
+                                                                                    {{ old('id_training') == $data->id ? 'selected' : '' }}>
+                                                                                    {{ $data->nama_training }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select> --}}
                                                                     </div>
                                                                     @error('id_training')
                                                                         <small class="text-danger">{{ $message }}</small>

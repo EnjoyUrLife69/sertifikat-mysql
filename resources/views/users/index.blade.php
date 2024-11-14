@@ -203,17 +203,14 @@
                                                 </label>
                                             @endforeach
                                         @endif
-
                                     </td>
                                     <td>
                                         {{-- SHOW DATA --}}
-                                        @can('user-edit')
-                                            <button type="button" class="btn btn-sm btn-warning"
-                                                data-bs-target="#Show{{ $user->id }}" data-bs-toggle="modal">
-                                                <i class='bx bx-show-alt' data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Show" data-bs-offset="0,4" data-bs-html="true"></i>
-                                            </button>
-                                        @endcan
+                                        <button type="button" class="btn btn-sm btn-warning"
+                                            data-bs-target="#Show{{ $user->id }}" data-bs-toggle="modal">
+                                            <i class='bx bx-show-alt' data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Show" data-bs-offset="0,4" data-bs-html="true"></i>
+                                        </button>
                                         <!-- Modal -->
                                         <div class="modal fade" id="Show{{ $user->id }}" tabindex="-1"
                                             aria-hidden="true">
@@ -273,8 +270,6 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-outline-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
                                                         </div>
                                                     </form>
                                                 </div>

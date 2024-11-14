@@ -79,7 +79,7 @@
 
             <!-- Order Statistics -->
             <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-                <div class="card h-100" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300">
+                <div class="card h-100" style="z-index: 2" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                         <div class="card-title mb-0">
                             <h5 class="m-0 me-2">Statistik</h5>
@@ -95,12 +95,13 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative; z-index: 10;">
                             <div class="d-flex flex-column align-items-center gap-1">
                                 <h3 class="mb-2" style="margin-left: -90px"> {{ $total_pelatihan }} </h3>
                                 <span style="width: 150px">Total Jumlah <br> kelas Pelatihan</span>
                             </div>
-                            <canvas id="myChart1" width="250" height="125" style="margin-left: -50px;"></canvas>
+                            <canvas id="myChart1" width="500" height="125"
+                                style="margin-left: -160px;"></canvas>
                         </div>
                         <ul class="p-0 m-0">
                             @foreach ($limitTraining as $data)
@@ -117,17 +118,16 @@
                                                 <small class="fw-semibold">90.5k</small>
                                             </div> --}}
                                     </div>
-                                </li>
                             @endforeach
                         </ul>
-                    </div>
+                    </div> 
                 </div>
             </div>
 
             <!--/ Order Statistics -->
-            <div class="col">
+            <div class="col" >
                 <div class="col-12 mb-2">
-                    <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
+                    <div class="card" style="z-index: 1" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500" style="overflow: visible !important;">
                         <div class="card-body" style="height: 275px">
                             <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                                 <div style="margin-top: 5%; margin-left: 2%"
@@ -156,10 +156,9 @@
 
                                 <!-- Chart -->
                                 <canvas id="myChart2" width="500" height="250"
-                                    style="margin-top: -12px;"></canvas>
+                                    style="margin-top: -12px;" ></canvas>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="row">

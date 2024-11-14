@@ -25,7 +25,7 @@
                     <form method="GET" action="{{ route('training.index') }}">
                         <div class="row" style="margin-left: 137px;">
                             <div class="col-md-5" style="margin-top: 16px; margin-left: -90px;">
-                                <select class="select2" name="tahun"
+                                <select class="select2 form1" name="tahun"
                                     style="margin-top: 16px; width: 220px; margin-left: -60px;" id="exampleSelectYear">
                                     <option value="" {{ is_null(request()->get('tahun')) ? 'selected' : '' }}>
                                         Tampilkan Semua Data
