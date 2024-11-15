@@ -1,6 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    @php
+        $frontendCount = \App\Models\Counter::where('type', 'frontend')->value('count') ?? 0;
+        $checkCertificateCount = \App\Models\Counter::where('type', 'check_certificate')->value('count') ?? 0;
+    @endphp
+
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-lg-12 mb-4 order-0">
@@ -95,13 +100,13 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative; z-index: 10;">
+                        <div class="d-flex justify-content-between align-items-center mb-3"
+                            style="position: relative; z-index: 10;">
                             <div class="d-flex flex-column align-items-center gap-1">
                                 <h3 class="mb-2" style="margin-left: -90px"> {{ $total_pelatihan }} </h3>
                                 <span style="width: 150px">Total Jumlah <br> kelas Pelatihan</span>
                             </div>
-                            <canvas id="myChart1" width="500" height="125"
-                                style="margin-left: -160px;"></canvas>
+                            <canvas id="myChart1" width="500" height="125" style="margin-left: -160px;"></canvas>
                         </div>
                         <ul class="p-0 m-0">
                             @foreach ($limitTraining as $data)
@@ -120,15 +125,16 @@
                                     </div>
                             @endforeach
                         </ul>
-                    </div> 
+                    </div>
                 </div>
             </div>
 
             <!--/ Order Statistics -->
-            <div class="col" >
+            <div class="col">
                 <div class="col-12 mb-2">
-                    <div class="card" style="z-index: 1" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500" style="overflow: visible !important;">
-                        <div class="card-body" style="height: 275px">
+                    <div class="card" style="z-index: 1" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500"
+                        style="overflow: visible !important;">
+                        <div class="card-body" style="height: 280px">
                             <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                                 <div style="margin-top: 5%; margin-left: 2%"
                                     class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
@@ -156,7 +162,7 @@
 
                                 <!-- Chart -->
                                 <canvas id="myChart2" width="500" height="250"
-                                    style="margin-top: -12px;" ></canvas>
+                                    style="margin-top: -12px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -213,6 +219,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-6 mt-3">
+                <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
+                    <div class="card-body">
+                        <span class="fw-semibold d-block mb-1">Jumlah yang mengakses <b style="color: blue">Halaman
+                                Utama</b></span><br>
+                        <h3 style="margin-left: 25px;" class="card-title mb-2"><b>{{ $frontendCount }}</b>
+                            &nbsp; <b style="font-size: 15px">Pengunjung</b></h3><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-3">
+                <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
+                    <div class="card-body">
+                        <span class="fw-semibold d-block mb-1">Jumlah yang mengecek <b
+                                style="color: blue">Sertifikat</b></span><br>
+                        <h3 style="margin-left: 25px;" class="card-title mb-2"><b>{{ $checkCertificateCount }}</b>
+                            &nbsp; <b style="font-size: 15px">Pencari Sertifikat</b></h3><br>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 

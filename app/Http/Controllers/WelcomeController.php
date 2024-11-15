@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Counter;
 use App\Models\Sertifikat;
 use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
@@ -27,8 +29,26 @@ class WelcomeController extends Controller
         return $date->format('j') . $suffix;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        // Mendapatkan IP pengunjung
+        $ipAddress = $request->ip();
+
+        // Mengecek apakah IP pengunjung sudah tercatat di session
+        if (!session()->has('visited_frontend_' . $ipAddress)) {
+            // Jika belum, tambah count dan simpan di session
+            Counter::updateOrCreate(
+                ['type' => 'frontend'],
+                ['count' => DB::raw('count + 1')]
+            );
+
+            // Tandai bahwa pengunjung dengan IP ini sudah pernah mengakses halaman utama
+            session()->put('visited_frontend_' . $ipAddress, true);
+        }
+
+        // Ambil jumlah akses frontend
+        $frontendCount = Counter::where('type', 'frontend')->value('count') ?? 0;
+
         $limitTraining = Training::orderBy('created_at', 'desc')->limit(4)->get();
         foreach ($limitTraining as $data) {
             $startTanggal = Carbon::parse($data->tanggal_mulai);
@@ -75,11 +95,14 @@ class WelcomeController extends Controller
             }
         }
 
-        return view('welcome', compact('limitTraining', 'limitTrainingfooter'));
+        return view('welcome', compact('limitTraining', 'limitTrainingfooter', 'frontendCount'));
     }
 
     public function checkCertificate(Request $request)
     {
+        // Ambil jumlah akses cek sertifikat
+        $checkCertificateCount = Counter::where('type', 'check_certificate')->value('count') ?? 0;
+
         // Validasi input
         $request->validate([
             'nomor_sertifikat' => 'required',
@@ -99,18 +122,12 @@ class WelcomeController extends Controller
             $startTanggal = Carbon::parse($data->tanggal_mulai);
             $endTanggal = Carbon::parse($data->tanggal_selesai);
 
-            // Format tanggal
-            $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
-            $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
-
             if ($startTanggal->format('F Y') === $endTanggal->format('F Y')) {
                 $formattedMonth = $startTanggal->translatedFormat('F');
                 $formattedYear = $startTanggal->translatedFormat('Y');
-                $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal}, {$formattedYear}";
+                $data->formatted_tanggal_training = "{$formattedMonth} {$startTanggal->day} - {$endTanggal->day}, {$formattedYear}";
             } else {
-                $formattedstartTanggal = $startTanggal->format('F j');
-                $formattedendTanggal = $endTanggal->format('F j, Y');
-                $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
+                $data->formatted_tanggal_training = "{$startTanggal->format('F j')} - {$endTanggal->format('F j, Y')}";
             }
         }
 
@@ -118,40 +135,32 @@ class WelcomeController extends Controller
             $startTanggal = Carbon::parse($data->tanggal_mulai);
             $endTanggal = Carbon::parse($data->tanggal_selesai);
 
-            // Format tanggal
-            $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
-            $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
-
             if ($startTanggal->format('F Y') === $endTanggal->format('F Y')) {
                 $formattedMonth = $startTanggal->translatedFormat('F');
                 $formattedYear = $startTanggal->translatedFormat('Y');
-                $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal}, {$formattedYear}";
+                $data->formatted_tanggal_training = "{$formattedMonth} {$startTanggal->day} - {$endTanggal->day}, {$formattedYear}";
             } else {
-                $formattedstartTanggal = $startTanggal->format('F j');
-                $formattedendTanggal = $endTanggal->format('F j, Y');
-                $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
+                $data->formatted_tanggal_training = "{$startTanggal->format('F j')} - {$endTanggal->format('F j, Y')}";
             }
         }
 
         if ($sertifikat) {
+            // Hanya tambahkan count jika sertifikat ditemukan
+            Counter::updateOrCreate(
+                ['type' => 'check_certificate'],
+                ['count' => DB::raw('count + 1')]
+            );
+
             // Sertifikat ditemukan, ambil data training
             $training = $sertifikat->training; // Menggunakan relasi yang sudah didefinisikan
 
-            // Format tanggal untuk sertifikat
             $startDate = Carbon::parse($training->tanggal_mulai);
             $endDate = Carbon::parse($training->tanggal_selesai);
 
-            $formattedStartDate = $this->formatWithOrdinal($startDate);
-            $formattedEndDate = $this->formatWithOrdinal($endDate);
-
             if ($startDate->format('F Y') === $endDate->format('F Y')) {
-                $formattedMonth = $startDate->translatedFormat('F');
-                $formattedYear = $startDate->translatedFormat('Y');
-                $formattedTanggal = "{$formattedMonth} {$formattedStartDate} - {$formattedEndDate}, {$formattedYear}";
+                $formattedTanggal = "{$startDate->translatedFormat('F')} {$startDate->day} - {$endDate->day}, {$startDate->year}";
             } else {
-                $formattedStartDate = $startDate->format('F j');
-                $formattedEndDate = $endDate->format('F j, Y');
-                $formattedTanggal = "{$formattedStartDate} - {$formattedEndDate}";
+                $formattedTanggal = "{$startDate->format('F j')} - {$endDate->format('F j, Y')}";
             }
 
             $message = "
@@ -185,7 +194,6 @@ class WelcomeController extends Controller
                 'limitTraining' => $limitTraining,
                 'limitTrainingfooter' => $limitTrainingfooter,
             ]);
-
         } else {
             // Sertifikat tidak ditemukan
             return redirect(url('/') . '#sertifikat')->with([
@@ -196,5 +204,4 @@ class WelcomeController extends Controller
             ]);
         }
     }
-
 }
