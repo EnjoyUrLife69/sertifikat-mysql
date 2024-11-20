@@ -6,20 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Training extends Model
+class Slider extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'nama_training',
-        'nama_training_sertifikat',
-        'tanggal_mulai',
-        'tanggal_selesai',
-        'kode',
-        'konten',
-        'cover',
-        'tahun',
+        'image',
+        'judul',
+        'deskripsi',
+        'status'
     ];
 
     public $timestamps = true;
@@ -37,19 +32,13 @@ class Training extends Model
         });
     }
 
-    // Relasi ke tabel sertifikat
-    public function sertifikat()
-    {
-        return $this->hasMany(Sertifikat::class, 'id_training', 'id');
-    }
-
-    // Menghapus gambar (cover) yang terkait dengan model ini
     public function deleteImage()
     {
-        $imagePath = public_path('images/training/' . $this->cover);
-        if ($this->cover && file_exists($imagePath)) {
+        $imagePath = public_path('images/slider/' . $this->image); // Perbaiki path
+        if ($this->image && file_exists($imagePath)) {
             return unlink($imagePath);
         }
         return false;
     }
+
 }

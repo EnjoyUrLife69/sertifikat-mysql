@@ -29,7 +29,7 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Jenis
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama
                                     Training</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
@@ -39,6 +39,20 @@
                                             placeholder="AI Development" aria-label="John Doe" name="nama_training"
                                             style="padding-left: 15px;" aria-describedby="basic-icon-default-fullname2"
                                             value="{{ $training->nama_training }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama
+                                    Training (Sertfikat)</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i
+                                                class='bx bx-category'></i></span>
+                                        <input type="text" class="form-control" disabled id="basic-icon-default-fullname"
+                                            placeholder="AI Development" aria-label="John Doe" name="nama_training_sertifikat"
+                                            style="padding-left: 15px;" aria-describedby="basic-icon-default-fullname2"
+                                            value="{{ $training->nama_training_sertifikat }}" />
                                     </div>
                                 </div>
                             </div>

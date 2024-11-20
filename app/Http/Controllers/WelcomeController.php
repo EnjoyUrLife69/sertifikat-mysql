@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Counter;
 use App\Models\Sertifikat;
 use App\Models\Training;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,9 @@ class WelcomeController extends Controller
 
     public function index(Request $request)
     {
+        //SLIDER
+        $slider = Slider::where('status', true)->get();
+
         // Mendapatkan IP pengunjung
         $ipAddress = $request->ip();
 
@@ -95,7 +99,7 @@ class WelcomeController extends Controller
             }
         }
 
-        return view('welcome', compact('limitTraining', 'limitTrainingfooter', 'frontendCount'));
+        return view('welcome', compact('limitTraining', 'limitTrainingfooter', 'frontendCount' , 'slider'));
     }
 
     public function checkCertificate(Request $request)

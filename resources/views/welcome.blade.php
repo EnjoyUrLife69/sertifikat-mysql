@@ -3,53 +3,24 @@
 @section('content')
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel" id="carosel">
-        <div class="header-carousel-item">
-            <div class="header-carousel-item-img-1">
-                <img src="{{ asset('User/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Image">
-            </div>
-            <div class="carousel-caption">
-                <div class="carousel-caption-inner text-start p-3">
-                    <h1 class="display-1 text-capitalize text-white mb-4 fadeInUp animate__animated"
-                        data-animation="fadeInUp" data-delay="0.3s" style="animation-delay: 0.3s;">Pelatihan Berkualitas &
-                        Sertifikasi Terpercaya</h1>
-                    <p class="mb-5 fs-5 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="0.5s"
-                        style="animation-delay: 0.5s;">Tingkatkan keahlianmu dengan pelatihan profesional dan dapatkan
-                        sertifikat resmi yang diakui. Kami menyediakan platform untuk memastikan kesuksesan karirmu.</p>
-                </div>
-            </div>
 
-        </div>
-        <div class="header-carousel-item mx-auto">
-            <div class="header-carousel-item-img-2">
-                <img src="{{ asset('User/img/carousel-2.jpg') }}" class="img-fluid w-100" alt="Image">
-            </div>
-            <div class="carousel-caption">
-                <div class="carousel-caption-inner text-center p-3">
-                    <h1 class="display-1 text-capitalize text-white mb-4">Pelatihan dan Sertifikasi Terbaik untuk Masa
-                        Depanmu</h1>
-                    <p class="mb-5 fs-5">Kami menawarkan pelatihan berkualitas dengan sertifikasi resmi yang diakui.
-                        Persiapkan diri kamu untuk tantangan dunia kerja dengan keahlian yang lebih baik.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
-        <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+        @foreach ($slider as $data)
+            <div class="header-carousel-item mx-auto">
+                <div class="header-carousel-item-img-2">
+                    <img src="{{ asset('storage/' . $data->image) }}" class="img-fluid w-100" style="max-height: 49.7rem"
+                        alt="Image">
+                </div>
+                <div class="carousel-caption">
+                    <div class="carousel-caption-inner text-center p-3">
+                        <h1 class="display-1 text-capitalize text-white mb-4">{{ $data->judul }}</h1>
+                        <p class="mb-5 fs-5">{{ $data->deskripsi }}</p>
+                        {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
+                    <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    </div>
                 </div>
             </div>
+        @endforeach
 
-        </div>
-        <div class="header-carousel-item">
-            <div class="header-carousel-item-img-3">
-                <img src="{{ asset('User/img/carousel-3.jpg') }}" class="img-fluid w-100" alt="Image">
-            </div>
-            <div class="carousel-caption">
-                <div class="carousel-caption-inner text-end p-3">
-                    <h1 class="display-1 text-capitalize text-white mb-4">Tingkatkan Kemampuanmu dengan Sertifikasi
-                        Profesional</h1>
-                    <p class="mb-5 fs-5">Dapatkan pelatihan terbaik yang akan membekalimu dengan sertifikat resmi untuk
-                        menunjang karirmu. Kami hadir untuk memastikan setiap langkah suksesmu.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
-    <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
-                </div>
-            </div>
-        </div>
     </div>
     <!-- Carousel End -->
 

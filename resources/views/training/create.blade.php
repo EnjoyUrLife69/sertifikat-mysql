@@ -30,6 +30,24 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama<b
+                                    style="color: red">*</b>
+                                Training (sertifiakt)</label>
+                            <div class="col-sm-10">
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text"><i
+                                            class='bx bx-category'></i></span>
+                                    <input type="text" class="form-control" id="basic-icon-default-fullname"
+                                        placeholder="Nama training di sertifikat" aria-label="John Doe" name="nama_training_sertifikat"
+                                        value="{{ old('nama_training_sertifikat') }}"
+                                        aria-describedby="basic-icon-default-fullname2" />
+                                </div>
+                                @error('nama_training')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-icon-default-company">Tanggal<b
                                     style="color: red">*</b>
                                 Mulai</label>

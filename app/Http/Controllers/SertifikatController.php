@@ -319,7 +319,7 @@ class SertifikatController extends Controller
         $pdf->SetFont('Helvetica', '', 17);
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetXY(4, 115);
-        $pdf->Cell(0, 10, 'for ' . $sertifikat->training->nama_training, 0, 1, 'C');
+        $pdf->Cell(0, 10, 'for ' . $sertifikat->training->nama_training_sertifikat, 0, 1, 'C');
 
         // Tanggal
         $pdf->SetFont('Arial', 'B', 16);

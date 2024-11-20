@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('trainings', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_training');
+            $table->string('nama_training_sertifikat');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->string('kode');

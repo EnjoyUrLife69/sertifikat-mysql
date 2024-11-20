@@ -5,6 +5,7 @@ use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\RoleController;
 
 // Lainnya
@@ -16,6 +17,9 @@ Auth::routes();
 // BACKEND ROUTE
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('slider', SliderController::class);
+    Route::post('/slider/status/{id}', [SliderController::class, 'updateStatus'])->name('slider.updateStatus');
 
     Route::resource('training', TrainingController::class);
     Route::resource('sertifikat', SertifikatController::class);
@@ -31,6 +35,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('users', UserController::class);
     Route::get('/users/{id}', [UserController::class, 'index']);
     Route::resource('roles', RoleController::class);
+
 });
 
 // FRONTEND ROUTE

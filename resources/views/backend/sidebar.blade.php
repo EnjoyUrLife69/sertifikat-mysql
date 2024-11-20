@@ -24,6 +24,12 @@
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->routeIs('slider.index') ? 'active' : '' }}">
+            <a href="{{ route('slider.index') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-slideshow'></i>
+                <div data-i18n="Analytics">Slider</div>
+            </a>
+        </li>
         <li
             class="menu-item {{ request()->routeIs('training.index') || request()->routeIs('sertifikat.index') || request()->routeIs('training.edit') || request()->routeIs('training.show') || request()->routeIs('sertifikat.show') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

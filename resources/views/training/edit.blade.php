@@ -27,7 +27,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Jenis<b
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama<b
                                         style="color: red">*</b>
                                     Training</label>
                                 <div class="col-sm-10">
@@ -38,6 +38,21 @@
                                             placeholder="AI Development" aria-label="John Doe" name="nama_training"
                                             style="padding-left: 15px;" aria-describedby="basic-icon-default-fullname2"
                                             value="{{ $training->nama_training }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama<b
+                                        style="color: red">*</b>
+                                    Training (sertifikat)</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i
+                                                class='bx bx-category'></i></span>
+                                        <input type="text" class="form-control" id="basic-icon-default-fullname"
+                                            placeholder="AI Development" aria-label="John Doe" name="nama_training_sertifikat"
+                                            style="padding-left: 15px;" aria-describedby="basic-icon-default-fullname2"
+                                            value="{{ $training->nama_training_sertifikat }}" />
                                     </div>
                                 </div>
                             </div>
@@ -163,13 +178,13 @@
             tinymce.init({
                 selector: '#exampleFormControlTextarea1',
                 height: 500, // Anda bisa menyesuaikan tinggi awal
-                toolbar: 'undo redo | styles | bold italic | bullist numlist | outdent indent | link image',
+                 toolbar: 'undo redo | styles | bold italic | bullist numlist | alignleft aligncenter alignright | outdent indent',
                 plugins: 'lists link image',
                 setup: function(editor) {
                     editor.on('init', function() {
                         editor.getBody().style.width = '100%';
                     });
-
+                    
                     // Menyesuaikan tinggi editor berdasarkan isi
                     editor.on('input', function() {
                         editor.getBody().style.height =
