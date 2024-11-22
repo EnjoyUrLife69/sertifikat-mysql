@@ -33,7 +33,7 @@ class SliderController extends Controller
         $request->validate([
             'judul' => 'required',
             'deskripsi' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $slider = new Slider();
@@ -87,7 +87,7 @@ class SliderController extends Controller
         $request->validate([
             'judul' => 'required',
             'deskripsi' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $slider = Slider::findOrFail($id);

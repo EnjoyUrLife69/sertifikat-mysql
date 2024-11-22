@@ -20,7 +20,7 @@
         <div class="container my-5">
             <div class="row g-4">
                 <center>
-                    <div style="width: 60%">
+                    <div style="width: 100%">
                         <h1 style="font-size: 30px; color: #102147" class="display-5 mb-4">Temukan berbagai program
                             pelatihan yang dirancang untuk meningkatkan keterampilan Anda dan memperluas wawasan Anda menuju
                             kesuksesan.</h1>

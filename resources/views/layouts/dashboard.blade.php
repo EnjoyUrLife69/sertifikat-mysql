@@ -171,15 +171,29 @@
         </div>
     </div>
 
-    <!-- Datatables JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+    <!-- Datatables JS -->
     <script
         src="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/b-html5-3.1.2/r-3.0.3/sc-2.4.3/sb-1.8.0/datatables.min.js">
     </script>
+
     <script>
-        let table = new DataTable('#myTable');
+        let table = new DataTable('#myTable', {
+            "searching": true, // enable search
+            "columnDefs": [{
+                    "targets": [1 , 2], // Specify the column index (e.g., 0 for the first column)
+                    "searchable": true // Allow searching only for this column
+                },
+                {
+                    "targets": "_all", // For all other columns
+                    "searchable": false // Disable search for all other columns
+                }
+            ]
+        });
     </script>
+
 
     <!-- Tooltip JS -->
     <script>

@@ -27,7 +27,7 @@
         <li class="menu-item {{ request()->routeIs('slider.index') ? 'active' : '' }}">
             <a href="{{ route('slider.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-slideshow'></i>
-                <div data-i18n="Analytics">Slider</div>
+                <div data-i18n="Analytics">Front Slider</div>
             </a>
         </li>
         <li

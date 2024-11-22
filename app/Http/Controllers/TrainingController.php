@@ -70,14 +70,34 @@ class TrainingController extends Controller
             $formattedStartDate = $this->formatWithOrdinal($startDate);
             $formattedEndDate = $this->formatWithOrdinal($endDate);
 
-            if ($startDate->format('F Y') === $endDate->format('F Y')) {
+            // Jika tanggal mulai dan selesai berada di hari yang sama
+            if ($startDate->isSameDay($endDate)) {
+                // Tampilkan tanggal, bulan, dan tahun
+                $formattedMonth = $startDate->translatedFormat('F');
+                $formattedYear = $startDate->translatedFormat('Y');
+                $data->formatted_tanggal = "{$formattedMonth} {$formattedStartDate} , {$formattedYear}";
+            }
+            // Jika tanggal mulai dan selesai berada di bulan yang sama
+            elseif ($startDate->format('F Y') === $endDate->format('F Y')) {
+                // Format tanggal mulai dan selesai dalam bulan yang sama
                 $formattedMonth = $startDate->translatedFormat('F');
                 $formattedYear = $startDate->translatedFormat('Y');
                 $data->formatted_tanggal = "{$formattedMonth} {$formattedStartDate} - {$formattedEndDate}, {$formattedYear}";
+            }
+            // Jika tanggal mulai dan selesai berada di bulan yang berbeda tetapi tahun yang sama
+            elseif ($startDate->format('Y') === $endDate->format('Y')) {
+                // Format bulanawal, tglmulai - bulanakhir, tglakhir, tahun
+                $formattedStartMonth = $startDate->translatedFormat('F');
+                $formattedEndMonth = $endDate->translatedFormat('F');
+                $formattedYear = $startDate->translatedFormat('Y');
+                $data->formatted_tanggal = "{$formattedStartMonth} {$formattedStartDate} - {$formattedEndMonth} {$formattedEndDate}, {$formattedYear}";
             } else {
-                $formattedStartDate = $startDate->translatedFormat('F j');
-                $formattedEndDate = $endDate->translatedFormat('F j, Y');
-                $data->formatted_tanggal = "{$formattedStartDate} - {$formattedEndDate}";
+                // Jika tanggal mulai dan selesai berada di tahun yang berbeda
+                $formattedStartMonthYear = $startDate->translatedFormat('F Y'); // Bulan dan tahun mulai
+                $formattedEndMonthYear = $endDate->translatedFormat('F Y'); // Bulan dan tahun selesai
+
+                // Menampilkan tanggal mulai dan selesai dengan bulan, tanggal, dan tahun
+                $data->formatted_tanggal = "{$startDate->translatedFormat('F')} {$formattedStartDate}, {$startDate->translatedFormat('Y')} - {$endDate->translatedFormat('F')} {$formattedEndDate}, {$endDate->translatedFormat('Y')}";
             }
         }
 

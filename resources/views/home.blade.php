@@ -106,7 +106,7 @@
                                 <h3 class="mb-2" style="margin-left: -90px"> {{ $total_pelatihan }} </h3>
                                 <span style="width: 150px">Total Jumlah <br> kelas Pelatihan</span>
                             </div>
-                            <canvas id="myChart1" width="500" height="125" style="margin-left: -160px;"></canvas>
+                            <canvas id="myChart1" width="400" height="125" style="margin-left: -160px;"></canvas>
                         </div>
                         <ul class="p-0 m-0">
                             @foreach ($limitTraining as $data)
@@ -136,7 +136,13 @@
                         style="overflow: visible !important;">
                         <div class="card-body" style="height: 280px">
                             <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                                <div style="margin-top: 5%; margin-left: 2%"
+                                
+
+                                <!-- Chart -->
+                                <canvas id="myChart2" width="500" height="250"
+                                    style="margin-top: -12px;"></canvas>
+
+                                    <div style="margin-top: 5%; margin-left: 2%"
                                     class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                                     <div class="card-title">
                                         <h5 class="text-nowrap mb-2">Statistik <br> Pelatihan Bulanan</h5>
@@ -159,10 +165,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Chart -->
-                                <canvas id="myChart2" width="500" height="250"
-                                    style="margin-top: -12px;"></canvas>
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-11">
                 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel Data /</span> <b data-aos="fade-left"
-                        data-aos-duration="200">Image Slideshow</b>
+                        data-aos-duration="200">Front Slider</b>
                 </h4>
             </div>
             <div class="col-md-1">
@@ -17,7 +17,7 @@
         <div class="card">
             <div class="row" style="margin-top: 10px;">
                 <div class="col-10">
-                    <h5 class="card-header">Data Slideshow Tables</h5>
+                    <h5 class="card-header">Front Slider Tables</h5>
                 </div>
 
                 {{-- CREATE DATA --}}

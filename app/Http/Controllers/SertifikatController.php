@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use setasign\Fpdi\Fpdi;
 
+carbon::setLocale('en');
+
 class SertifikatController extends Controller
 {
     public function __construct()
@@ -167,6 +169,7 @@ class SertifikatController extends Controller
         // Simpan perubahan ke database
         $sertifikat->save();
 
+        toast('Data has been updated!', 'success')->position('top-end');
         return redirect()->route('sertifikat.index')->with('success', 'Sertifikat berhasil diperbarui.');
     }
 
@@ -179,7 +182,7 @@ class SertifikatController extends Controller
         return redirect()->route('sertifikat.index');
 
     }
-    
+
     private function formatWithOrdinal($date)
     {
         $day = $date->day;
@@ -202,7 +205,7 @@ class SertifikatController extends Controller
     {
         // Inisialisasi FPDI dan FPDF
         define('FPDF_FONTPATH', public_path('fonts/'));
-        
+
         // Ambil data sertifikat dari database berdasarkan ID, termasuk data relasi dengan 'training'
         $sertifikat = Sertifikat::with('training')->findOrFail($id);
         $training = $sertifikat->training;
@@ -246,19 +249,38 @@ class SertifikatController extends Controller
         $startDate = Carbon::parse($training->tanggal_mulai);
         $endDate = Carbon::parse($training->tanggal_selesai);
 
+        // Format tanggal dengan suffix ordinal
         $formattedStartDate = $this->formatWithOrdinal($startDate);
         $formattedEndDate = $this->formatWithOrdinal($endDate);
 
-        if ($startDate->format('F Y') === $endDate->format('F Y')) {
+        // Jika tanggal mulai dan selesai berada di hari yang sama
+        if ($startDate->isSameDay($endDate)) {
+            // Tampilkan tanggal, bulan, dan tahun
             $formattedMonth = $startDate->translatedFormat('F');
             $formattedYear = $startDate->translatedFormat('Y');
-
+            $formattedTanggal = "{$formattedMonth} {$formattedStartDate}, {$formattedYear}";
+        }
+        // Jika tanggal mulai dan selesai berada di bulan yang sama
+        elseif ($startDate->format('F Y') === $endDate->format('F Y')) {
+            // Format tanggal mulai dan selesai dalam bulan yang sama/
+            $formattedMonth = $startDate->translatedFormat('F');
+            $formattedYear = $startDate->translatedFormat('Y');
             $formattedTanggal = "{$formattedMonth} {$formattedStartDate} - {$formattedEndDate}, {$formattedYear}";
+        }
+        // Jika tanggal mulai dan selesai berada di bulan yang berbeda tetapi tahun yang sama
+        elseif ($startDate->format('Y') === $endDate->format('Y')) {
+            // Format bulanawal, tglmulai - bulanakhir, tglakhir, tahun
+            $formattedStartMonth = $startDate->translatedFormat('F');
+            $formattedEndMonth = $endDate->translatedFormat('F');
+            $formattedYear = $startDate->translatedFormat('Y');
+            $formattedTanggal = "{$formattedStartMonth} {$formattedStartDate} - {$formattedEndMonth} {$formattedEndDate}, {$formattedYear}";
         } else {
-            $formattedStartDate = $startDate->format('F j');
-            $formattedEndDate = $endDate->format('F j, Y');
+            // Jika tanggal mulai dan selesai berada di tahun yang berbeda
+            $formattedStartMonthYear = $startDate->translatedFormat('F Y'); // Bulan dan tahun mulai
+            $formattedEndMonthYear = $endDate->translatedFormat('F Y'); // Bulan dan tahun selesai
 
-            $formattedTanggal = "{$formattedStartDate} - {$formattedEndDate}";
+            // Menampilkan tanggal mulai dan selesai dengan bulan, tanggal, dan tahun
+            $formattedTanggal = "{$startDate->translatedFormat('F')} {$formattedStartDate}, {$startDate->translatedFormat('Y')} - {$endDate->translatedFormat('F')} {$formattedEndDate}, {$endDate->translatedFormat('Y')}";
         }
 
         // Mengubah bulan ke format Romawi
@@ -272,7 +294,7 @@ class SertifikatController extends Controller
         $qrCode = new QrCode(url('/check-certificate?nomor_sertifikat=' . urlencode($nomorSertifikat2)));
         $qrCode->setSize(300); // Set ukuran QR Code
         $writer = new PngWriter();
-        $qrCodePath = storage_path("app/public/qr_codes/{$sertifikat->id}.png");
+        $qrCodePath = storage_path("app/public/images/qr_codes/{$sertifikat->id}.png");
 
         // Menyimpan QR Code ke file
         $writer->write($qrCode)->saveToFile($qrCodePath);
@@ -286,7 +308,6 @@ class SertifikatController extends Controller
 
         // Inisialisasi FPDF
         $pdf = new Fpdi();
-
 
         // Daftarkan font
         $pdf->AddFont('AlexBrush-Regular', '', 'AlexBrush-Regular.php');
@@ -369,8 +390,10 @@ class SertifikatController extends Controller
             return redirect()->back()->with('error', 'Data sertifikat tidak ditemukan.');
         }
 
-        // Ambil nama training dari sertifikat pertama yang difilter
-        $namaTraining = $sertifikat->first()->training ? $sertifikat->first()->training->nama_training : 'training_tidak_ditemukan';
+        // Tentukan nama training jika id_training diberikan
+        $namaTraining = $idTraining && $sertifikat->first()->training
+        ? str_replace(' ', '_', $sertifikat->first()->training->nama_training)
+        : 'sertifikat';
 
         // Siapkan data untuk dikirim ke view
         $data = [
@@ -394,10 +417,11 @@ class SertifikatController extends Controller
         // Render PDF
         $dompdf->render();
 
-        // Ganti spasi pada nama training dengan underscore agar sesuai dengan format file
-        $namaFile = str_replace(' ', '_', $namaTraining) . '_peserta.pdf';
+        // Nama file PDF yang akan didownload
+        $namaFile = $namaTraining . '_peserta.pdf';
 
-        // Kirim PDF ke browser untuk didownload dengan nama file sesuai nama training
+        // Kirim PDF ke browser untuk didownload
         return $dompdf->stream($namaFile);
     }
+
 }

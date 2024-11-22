@@ -27,9 +27,9 @@
     <!-- Cek Sertifikat Start -->
     <div class="container-fluid sertifikat py-5 bg-light" id="sertifikat">
         <div class="container py-5 mt-5" style="margin-bottom: 5rem;">
-            <div id="result" class="card py-5 shadow-lg border-0 rounded wow fadeInUp" data-wow-delay="0.1s"
+            <div id="result" class="card py-5 shadow-lg border-0 rounded "
                 style="margin-bottom: 5rem;">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px">
+                <div class="text-center mx-auto mb-5 " style="max-width: 800px">
                     <h4 class="text-primary">Sertifikat</h4>
                     <h1 class="display-4">Konfirmasi Sertifikat Kamu</h1>
                     <p class="fs-5">Verifikasi sertifikat pelatihan kamu di sini dengan mudah. Masukkan nomor
@@ -38,7 +38,7 @@
 
                 <div class="row g-4 justify-content-center " style="margin-top: -70px;">
                     <div class="container justify-content-center"></div>
-                    <div class="col-lg-8 wow fadeInUp text-center" data-wow-delay="0.1s">
+                    <div class="col-lg-8 text-center">
                         <!-- Form untuk mengecek sertifikat -->
                         <form action="{{ route('checkCertificate') }}" method="POST">
                             @csrf
