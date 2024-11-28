@@ -38,7 +38,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <table class="table table-striped" id="myTable">
+                    <table class="table table-striped" id="myTable3">
                         <thead>
                             <tr>
                                 <th>No</th>

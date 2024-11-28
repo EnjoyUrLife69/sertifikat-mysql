@@ -125,7 +125,7 @@
                 <tr>
                     <td>{{ $no++ }}</td>
                     <td>{{ $data->nama_penerima }}</td>
-                    <td>{{ $data->email }}</td>
+                    <td>{{ !empty($data->email) ? $data->email : '-' }}</td>
                     @if (is_null(request()->get('id_training')))
                         <!-- Tampilkan "Nama Pelatihan" hanya jika tidak ada filter -->
                         <td>{{ $data->training ? $data->training->nama_training : '-' }}</td>

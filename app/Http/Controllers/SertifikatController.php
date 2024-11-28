@@ -361,15 +361,32 @@ class SertifikatController extends Controller
     {
         // Mengambil id_training dari request
         $idTraining = request()->get('id_training');
+        $namaPelatihan = null;
 
         // Mengambil data sertifikat dengan filter jika id_training diberikan
         if ($idTraining) {
             $data = Sertifikat::with('training')->where('id_training', $idTraining)->orderBy('nama_penerima', 'asc')->get();
+
+            // Mendapatkan nama pelatihan untuk menyesuaikan nama file
+            $training = \App\Models\Training::find($idTraining);
+            $namaPelatihan = $training ? str_replace(' ', '_', $training->nama_training) : 'nama_pelatihan';
         } else {
             $data = Sertifikat::with('training')->get();
         }
 
-        return Excel::download(new SertifikatExport($data), 'sertifikat.xlsx');
+        // Menentukan nama file
+        $fileName = 'sertifikat';
+
+        // Jika ada filter (id_training), ubah nama file
+        if ($namaPelatihan) {
+            $fileName .= "_{$namaPelatihan}";
+        }
+
+        // Tambahkan ekstensi file (.xlsx)
+        $fileName .= '.xlsx';
+
+        // Men-download file dengan nama yang sudah disesuaikan
+        return Excel::download(new SertifikatExport($data), $fileName);
     }
 
     public function exportPDF(Request $request)

@@ -56,7 +56,7 @@ class SliderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $slider = Slider::findOrFail($id);
-        $slider->status = $request->status;
+        $slider->status = $request->has('status') ? true : false;
         $slider->save();
 
         return response()->json(['success' => true, 'message' => 'Status updated successfully.']);
@@ -93,7 +93,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
         $slider->judul = $request->judul;
         $slider->deskripsi = $request->deskripsi;
-        $slider->status = $request->has('status') ? true : false;
+        // $slider->status = $request->has('status') ? true : false;
 
         if ($request->hasFile('image')) {
             $img = $request->file('image');

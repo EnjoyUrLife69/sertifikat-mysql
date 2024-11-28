@@ -192,6 +192,30 @@
                 }
             ]
         });
+        let table2 = new DataTable('#myTable2', {
+            "searching": true, // enable search
+            "columnDefs": [{
+                    "targets": [1], // Specify the column index (e.g., 0 for the first column)
+                    "searchable": true // Allow searching only for this column
+                },
+                {
+                    "targets": "_all", // For all other columns
+                    "searchable": false // Disable search for all other columns
+                }
+            ]
+        });
+        let table3 = new DataTable('#myTable3', {
+            "searching": true, // enable search
+            "columnDefs": [{
+                    "targets": [1, 2, 3], // Specify the column index (e.g., 0 for the first column)
+                    "searchable": true // Allow searching only for this column
+                },
+                {
+                    "targets": "_all", // For all other columns
+                    "searchable": false // Disable search for all other columns
+                }
+            ]
+        });
     </script>
 
 
